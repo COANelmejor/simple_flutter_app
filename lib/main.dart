@@ -121,16 +121,24 @@ class _RandomWordsState extends State<RandomWords> {
             (pair) {
               return ListTile(
                 title: Text(pair.asPascalCase, style: _biggerFont),
-                onTap: () {
+                trailing: const Icon(Icons.delete_forever),
+                onLongPress: () {
                   setState(() {
                     _saved.remove(pair);
                     final snackBar = SnackBar(
-                      content: Text('"$pair" removed.'),
+                      content: Text(pair.asPascalCase + ' removed.'),
                     );
                     Navigator.of(context).pop();
                     _pushSaved();
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   });
+                },
+                onTap: () {
+                  const snackBarDeleteInfo = SnackBar(
+                    content: Text('Long press to remove.'),
+                  );
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(snackBarDeleteInfo);
                 },
               );
             },
