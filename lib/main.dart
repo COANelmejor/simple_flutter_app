@@ -121,6 +121,17 @@ class _RandomWordsState extends State<RandomWords> {
             (pair) {
               return ListTile(
                 title: Text(pair.asPascalCase, style: _biggerFont),
+                onTap: () {
+                  setState(() {
+                    _saved.remove(pair);
+                    final snackBar = SnackBar(
+                      content: Text('"$pair" removed.'),
+                    );
+                    Navigator.of(context).pop();
+                    _pushSaved();
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                  });
+                },
               );
             },
           );
